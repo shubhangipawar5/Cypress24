@@ -1,0 +1,23 @@
+{
+  "name": "cy24",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhangipawar5/Cypress24.git"
+  },
+  "author": "Shubhangi Pawar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhangipawar5/Cypress24/issues"
+  },
+  "homepage": "https://github.com/shubhangipawar5/Cypress24#readme",
+  "dependencies": {
+    "cypress": "^13.6.6",
+    "npx": "^10.2.2"
+  }
+}
