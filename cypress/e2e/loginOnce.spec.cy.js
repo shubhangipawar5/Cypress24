@@ -4,7 +4,7 @@ describe('contact sales page', () => {
     beforeEach(() => {
 
         cy.login('Admin', 'admin123')
-
+        
     })
 
 
