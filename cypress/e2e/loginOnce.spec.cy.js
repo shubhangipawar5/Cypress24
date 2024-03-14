@@ -1,3 +1,5 @@
+const { difurl } = require("../support/util1");
+
 //https://www.cypress.io/blog/2021/08/04/authenticate-faster-in-tests-cy-session-command
 
 describe('contact sales page', () => {
