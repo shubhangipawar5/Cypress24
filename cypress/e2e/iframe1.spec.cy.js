@@ -2,13 +2,15 @@
 //step 2. supoort-commands-> import 'cypress-iframe';
 
 
+
+
 describe('Tutorialspoint Test', function () {
 
     it('iframe1 with plugin', function () {
         // launch URL
         cy.visit("https://jqueryui.com/draggable/");
         // frame loading
-        cy.frameLoaded('.demo-frame');
+        // cy.frameLoaded('.demo-frame');    //if we do not write thi line then also it xecutes safely bcz cypress loads frame automaticallly
         //shifting focus
         cy.iframe().find("#draggable").then(function (t) {
             const frmtxt = t.text()
@@ -17,9 +19,10 @@ describe('Tutorialspoint Test', function () {
             cy.log(frmtxt);
         })
     });
-    it.only('iframe2 without plugin', function () {
+    it.skip('iframe2 without plugin', function () {
 
         cy.visit("https://jqueryui.com/draggable/");
+
 
         cy.get('.demo-frame').then(($iframe) => {
             let body = $iframe.contents().find('body');

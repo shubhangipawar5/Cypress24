@@ -33,3 +33,53 @@ Cypress.Commands.add('login', (username, password) => {
       cy.get('button[type="submit"]').click()
     })
   })
+
+Cypress.Commands.add('rslogin',()=>{
+  cy.visit("https://rahulshettyacademy.com/client")
+  cy.get('#userEmail').type('Sarika2@test.com')
+  cy.get('#userPassword').type('@Minskole12')
+  cy.get('#login').click()
+})
+
+Cypress.Commands.add('saveLocalStorage', () => {
+  Cypress.log({
+      message: 'Grabbing local storage and saving to variable.',
+      displayName: 'SaveLocal'
+  });
+  
+  Object.keys(localStorage).forEach(key => {
+      LOCAL_STORAGE[key] = localStorage[key];
+  });
+});
+const LOCAL_STORAGE = {} ;
+Cypress.Commands.add('restoreLocalStorage', () => {
+  Cypress.log({
+      message: 'Grabbing local storage variable and setting.',
+      displayName: 'SetLocal'
+  });
+
+  Object.keys(LOCAL_STORAGE).forEach(key => {
+      localStorage.setItem(key, LOCAL_STORAGE[key]);
+  });
+});
+Cypress.Commands.add('getAndSetToken', (email,password) => {
+  Cypress.log({
+      message: 'Requests token and sets in local storage.',
+      displayName: 'GetToken'
+  });
+  cy.request({
+      url: 'https://rahulshettyacademy.com/api/ecom/auth/login',
+      method: 'POST',
+       body: {
+                "userEmail": "Sarika2@test.com", "userPassword": "@Minskole12"
+            
+      }
+  }).then(response => {
+      const {
+          token
+      } = response.body.token;
+      localStorage.setItem('jwt', token);
+  });
+});
+
+  

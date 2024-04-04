@@ -4,10 +4,12 @@ module.exports = defineConfig({
   projectId: "4pzs8b",
 
   e2e: {
-    baseUrl: "https://rahulshettyacademy.com/AutomationPractice/",
+    // baseUrl: "https://rahulshettyacademy.com/AutomationPractice/",
+    baseUrl:"https://rahulshettyacademy.com/client",
     testIsolation: false,
     failOnStatusCode: false,
     screenshotsFolder: 'cypress/screenshots',
+    failOnStatusCode: false,
   
     
     setupNodeEvents(on, config) {

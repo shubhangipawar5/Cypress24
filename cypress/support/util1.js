@@ -7,6 +7,7 @@ class diffurl{
         else if(envi === 'QA'){
             return "https://ultimateqa.com/automation"
         }
+        
     }
 }
 export let difurl = new diffurl();

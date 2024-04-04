@@ -4,7 +4,7 @@
 
 
 describe('get multiple environments', () => {
-  const activeEnv = Cypress.env('deployment-env')
+  const activeEnv = Cypress.env('deployment-env')   //same as ->  let envi = Cypress.env('ENV');
   it('change the environment at run time', () => {
       cy.visit("");
       cy.log(Cypress.env(activeEnv).bookId)
