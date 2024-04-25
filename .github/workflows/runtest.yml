@@ -6,10 +6,10 @@ on:
     inputs:
       region:
         discription: 'which branch do you want toi run'
-          type: choice
-          options:
-            -dev
-            -master
+        type: choice
+        options:
+          -dev
+          -master
 
 jobs:
 
