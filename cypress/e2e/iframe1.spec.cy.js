@@ -17,7 +17,7 @@ describe('Tutorialspoint Test', function () {
             cy.log(frmtxt);
         })
     });
-    it.only('iframe2 without plugin', function () {
+    it('iframe2 without plugin', function () {
 
         cy.visit("https://jqueryui.com/draggable/");
 
