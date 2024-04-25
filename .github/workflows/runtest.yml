@@ -1,26 +1,66 @@
 # name: Cypress Tests with Dependency and Artifact Caching
 
-# on: push
+on: 
 
-name: Cypress Tests using Cypress Docker Image
-
-on: push
+  workflow_dispatch:
+    inputs:
+      region:
+        discription: 'which branch do you want toi run'
+          type: choice
+          options:
+            -dev
+            -master
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-22.04
-    container:
-      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-      options: --user 1001
+
+  cypress-test:
+    strategy:
+      matrix:
+        specs: [
+          ./cypress/e2e/loginOnce.spec.cy.js,
+          ./cypress/e2e/mulUrl1.spec.cy.js
+        ]
+
+    permissions:
+      contents: read
+      issues: write
+      checks: write
+      pull-request: write
+    
+    runs-on: ubantu-latest
+
     steps:
-      - name: Checkout
+      - name: checkout repo
         uses: actions/checkout@v4
-      - name: Cypress run
+
+      - name: run cypress test on ${{ inputs.region }}
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm start
+          config-file: cypress.config.js
+          publish-summary: true
           browser: chrome
+
+# on: push
+
+# name: Cypress Tests using Cypress Docker Image
+
+# on: push
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-22.04
+#     container:
+#       image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+#       options: --user 1001
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       - name: Cypress run
+#         uses: cypress-io/github-action@v6
+#         with:
+#           build: npm run build
+#           start: npm start
+#           browser: chrome
 
 # jobs:
 #   install:
