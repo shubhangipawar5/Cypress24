@@ -3,14 +3,6 @@
 on: 
 
   workflow_dispatch:
-    inputs:
-      region:
-        discription: 'which branch do you want toi run'
-        type: choice
-        options:
-          -dev
-          -master
-
 jobs:
 
   cypress-test:
@@ -25,7 +17,6 @@ jobs:
       contents: read
       issues: write
       checks: write
-      pull-request: write
     
     runs-on: ubantu-latest
 
@@ -33,7 +24,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
-      - name: run cypress test on ${{ inputs.region }}
+      - name: run cypress test
         uses: cypress-io/github-action@v6
         with:
           config-file: cypress.config.js
