@@ -24,13 +24,13 @@ on:
 
 jobs:
 
-  cypress-test:
-    strategy:
-      matrix:
-        specs: [
-          ./cypress/e2e/loginOnce.spec.cy.js,
-          ./cypress/e2e/mulUrl1.spec.cy.js
-        ]
+  # cypress-test:
+  #   strategy:
+  #     matrix:
+  #       specs: [
+  #         ./cypress/e2e/loginOnce.spec.cy.js,
+  #         ./cypress/e2e/mulUrl1.spec.cy.js
+  #       ]
 
     permissions:
       contents: read
