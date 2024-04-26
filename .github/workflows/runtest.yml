@@ -1,8 +1,26 @@
 # name: Cypress Tests with Dependency and Artifact Caching
 
 on: 
+  workflow_dispatch: 
+    inputs: 
+      logLevel:
+        description: 'log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options: 
+          - info
+          - warning
+          - debug
+      tags:
+        description: 'test workflow dispatch'
+        required: false
+        type: boolean
+      environment:
+        description: 'selecct your test env'
+        type: environment
+        required: true
 
-  workflow_dispatch:
 jobs:
 
   cypress-test:
