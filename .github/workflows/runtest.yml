@@ -37,6 +37,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           config-file: cypress.config.js
+          build: npm run build
           publish-summary: true
           browser: chrome
 
