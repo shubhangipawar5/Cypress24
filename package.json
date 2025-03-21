@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "cy:dashboard": "npx cypress run --record --key f232e062-8f3c-4d0a-b2bf-e2a5989b2cad"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shubhangipawar5/Cypress24.git"
@@ -15,7 +17,7 @@
   },
   "homepage": "https://github.com/shubhangipawar5/Cypress24#readme",
   "dependencies": {
-    "cypress": "^13.6.6",
+    "cypress": "^13.17.0",
     "cypress-plugin-api": "^2.11.1",
     "npx": "^10.2.2"
   },
