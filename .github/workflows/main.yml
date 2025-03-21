@@ -60,14 +60,28 @@ jobs:
       - name: Build the app
         run: npm run build
 
+      - name: Debug before start
+        run: |
+          echo "Checking available ports..."
+          netstat -tulnp || true
+          echo "Checking running processes..."
+          ps aux
+
       - name: Start the app in background
         run: |
-          npm start &  
-          npx wait-on http://localhost:3000 --timeout 120000
+          nohup npm start > output.log 2>&1 &
+          sleep 10
+          echo "Checking running processes..."
+          ps aux
+          echo "Checking open ports..."
+          netstat -tulnp
+          echo "App logs:"
+          cat output.log
 
       # - name: Run Cypress tests
       #   run: npm run test    
-        # above 'test' is the command from packge.json fule to run cypress test
+      #   # above 'test' is the command from packge.json fule to run cypress test
+
       - name: Run Cypress tests in parallel
         run: npm run test -- --parallel
 
