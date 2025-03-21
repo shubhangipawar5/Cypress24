@@ -52,19 +52,30 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Build the app
-      #   run: npm run build
+      - name: Build the app
+        run: npm run build
 
-      - name: Start the app in background
-        run: npm start 
-         wait-on http://localhost:3000 --timeout 120000
-
-      - name: Debug logs
+      - name: Debug before start
         run: |
+          echo "Checking available ports..."
+          netstat -tulnp || true
           echo "Checking running processes..."
           ps aux
-          echo "Checking ports in use..."
+
+      - name: Start the app in background
+        run: |
+          nohup npm start > output.log 2>&1 &
+          sleep 10
+          echo "Checking running processes..."
+          ps aux
+          echo "Checking open ports..."
           netstat -tulnp
+          echo "App logs:"
+          cat output.log
 
       - name: Run Cypress tests
         run: npx cypress run --browser chrome --headless
+
+      - name: Stop the app
+        run: pkill -f "npm start" || true
+
