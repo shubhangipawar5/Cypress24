@@ -7,7 +7,8 @@
     "cy:dashboard": "npx cypress run --record --key f232e062-8f3c-4d0a-b2bf-e2a5989b2cad",
     "build": "echo 'No build step required'",
     "start": "node server.js",
-    "test": "npm run cy:dashboard"
+    "test": "npm run cy:dashboard",
+    "cy:parallel" : "npx cypress run --record --key f232e062-8f3c-4d0a-b2bf-e2a5989b2cad --parallel"
 
   },
   "repository": {

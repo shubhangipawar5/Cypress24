@@ -40,6 +40,10 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # https://github.com/cypress-io/github-action/issues/48
+      matrix:
+        containers: [1, 2] # Uses 2 parallel instances
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,6 +52,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          parallel: true # Runs test in parallel using settings above
 
       - name: Install dependencies
         run: npm install
@@ -55,27 +60,16 @@ jobs:
       - name: Build the app
         run: npm run build
 
-      - name: Debug before start
-        run: |
-          echo "Checking available ports..."
-          netstat -tulnp || true
-          echo "Checking running processes..."
-          ps aux
-
       - name: Start the app in background
         run: |
-          nohup npm start > output.log 2>&1 &
-          sleep 10
-          echo "Checking running processes..."
-          ps aux
-          echo "Checking open ports..."
-          netstat -tulnp
-          echo "App logs:"
-          cat output.log
+          npm start &  
+          npx wait-on http://localhost:3000 --timeout 120000
 
-      - name: Run Cypress tests
-        run: npm run test    
+      # - name: Run Cypress tests
+      #   run: npm run test    
         # above 'test' is the command from packge.json fule to run cypress test
+      - name: Run Cypress tests in parallel
+        run: npm run test -- --parallel
 
       - name: Stop the app
         run: pkill -f "npm start" || true
