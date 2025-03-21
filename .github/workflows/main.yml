@@ -74,7 +74,8 @@ jobs:
           cat output.log
 
       - name: Run Cypress tests
-        run: test
+        run: npm run test    
+        # above 'test' is the command from packge.json fule to run cypress test
 
       - name: Stop the app
         run: pkill -f "npm start" || true
