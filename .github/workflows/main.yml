@@ -43,11 +43,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          browser: chrome
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      # - name: Build the app
+      #   run: npm run build
+
+      - name: Start the app in background
+        run: npm start & npx wait-on http://localhost:3000
+
+      - name: Debug logs
+        run: |
+          echo "Checking running processes..."
+          ps aux
+          echo "Checking ports in use..."
+          netstat -tulnp
+
+      - name: Run Cypress tests
+        run: npx cypress run --browser chrome --headless
