@@ -28,7 +28,7 @@
 #         env:
 #           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
 #           # in GitHub repo → Settings → Secrets → Actions
-#           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 #           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [1, 2] # Uses 2 parallel instances
+        containers: [1, 2, 3] # Uses 2 parallel instances
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          parallel: true # Runs test in parallel using settings above
+          # parallel: true # Runs test in parallel using settings above
 
       - name: Install dependencies
         run: npm install
@@ -83,7 +83,9 @@ jobs:
       #   # above 'test' is the command from packge.json fule to run cypress test
 
       - name: Run Cypress tests in parallel
-        run: npm run test -- --parallel
+        run: npx cypress run --record --parallel --ci-build-id $GITHUB_RUN_ID
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
       - name: Stop the app
         run: pkill -f "npm start" || true
