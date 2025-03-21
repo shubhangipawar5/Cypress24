@@ -56,7 +56,8 @@ jobs:
       #   run: npm run build
 
       - name: Start the app in background
-        run: npm start & npx wait-on http://localhost:3000
+        run: npm start 
+         wait-on http://localhost:3000 --timeout 120000
 
       - name: Debug logs
         run: |
