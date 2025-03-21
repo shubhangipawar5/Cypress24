@@ -74,7 +74,7 @@ jobs:
           cat output.log
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --headless
+        run: test
 
       - name: Stop the app
         run: pkill -f "npm start" || true
